@@ -20,13 +20,13 @@ import (
 	_ "image/png"
 
 	"github.com/hajimehoshi/ebiten"
-	rblocks "github.com/hajimehoshi/ebiten/examples/resources/images/blocks"
+	rblocks "github.com/sindbach/build-game/builders/images"
 )
 
 var imageBlocks *ebiten.Image
 
 func init() {
-	img, _, err := image.Decode(bytes.NewReader(rblocks.Blocks_png))
+	img, _, err := image.Decode(bytes.NewReader(rblocks.WallTile))
 	if err != nil {
 		panic(err)
 	}
@@ -62,13 +62,7 @@ type BlockType int
 const (
 	BlockTypeNone BlockType = iota
 	BlockType1
-	BlockType2
-	BlockType3
-	BlockType4
-	BlockType5
-	BlockType6
-	BlockType7
-	BlockTypeMax = BlockType7
+	BlockTypeMax = BlockType1
 )
 
 type Piece struct {
@@ -103,56 +97,9 @@ func init() {
 			blockType: BlockType1,
 			blocks: transpose([][]bool{
 				{f, f, f, f},
-				{t, t, t, t},
+				{f, t, t, f},
 				{f, f, f, f},
 				{f, f, f, f},
-			}),
-		},
-		BlockType2: {
-			blockType: BlockType2,
-			blocks: transpose([][]bool{
-				{t, f, f},
-				{t, t, t},
-				{f, f, f},
-			}),
-		},
-		BlockType3: {
-			blockType: BlockType3,
-			blocks: transpose([][]bool{
-				{f, t, f},
-				{t, t, t},
-				{f, f, f},
-			}),
-		},
-		BlockType4: {
-			blockType: BlockType4,
-			blocks: transpose([][]bool{
-				{f, f, t},
-				{t, t, t},
-				{f, f, f},
-			}),
-		},
-		BlockType5: {
-			blockType: BlockType5,
-			blocks: transpose([][]bool{
-				{t, t, f},
-				{f, t, t},
-				{f, f, f},
-			}),
-		},
-		BlockType6: {
-			blockType: BlockType6,
-			blocks: transpose([][]bool{
-				{f, t, t},
-				{t, t, f},
-				{f, f, f},
-			}),
-		},
-		BlockType7: {
-			blockType: BlockType7,
-			blocks: transpose([][]bool{
-				{t, t},
-				{t, t},
 			}),
 		},
 	}
@@ -161,8 +108,8 @@ func init() {
 const (
 	blockWidth     = 10
 	blockHeight    = 10
-	fieldBlockNumX = 10
-	fieldBlockNumY = 20
+	fieldBlockNumX = 20
+	fieldBlockNumY = 50
 )
 
 func drawBlock(r *ebiten.Image, block BlockType, x, y int, clr ebiten.ColorM) {

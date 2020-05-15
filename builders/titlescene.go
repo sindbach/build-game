@@ -77,7 +77,7 @@ func (s *TitleScene) Update(state *GameState) error {
 
 func (s *TitleScene) Draw(r *ebiten.Image) {
 	s.drawTitleBackground(r, s.count)
-	drawLogo(r, "RISE OF THE FISH")
+	drawLogo(r, "BUILDERS")
 
 	message := "PRESS SPACE TO START"
 	x := 0

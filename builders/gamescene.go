@@ -21,7 +21,6 @@ import (
 	_ "image/jpeg"
 	_ "image/png"
 	"math/rand"
-	"strconv"
 	"time"
 
 	"github.com/hajimehoshi/ebiten"
@@ -74,7 +73,7 @@ func linesTextBoxPosition() (x, y int) {
 
 func init() {
 	// Background
-	img, _, err := image.Decode(bytes.NewReader(builders.BackgroundTile))
+	img, _, err := image.Decode(bytes.NewReader(builders.SceneBackground))
 	if err != nil {
 		panic(err)
 	}
@@ -86,24 +85,6 @@ func init() {
 	// Windows: Field
 	x, y := fieldWindowPosition()
 	drawWindow(imageWindows, x, y, fieldWidth, fieldHeight)
-
-	// Windows: Next
-	x, y = nextWindowLabelPosition()
-	drawTextWithShadow(imageWindows, "NEXT", x, y, 1, fontColor)
-	x, y = nextWindowPosition()
-	drawWindow(imageWindows, x, y, 5*blockWidth, 5*blockHeight)
-
-	// Windows: Score
-	x, y = scoreTextBoxPosition()
-	drawTextBox(imageWindows, "SCORE", x, y, textBoxWidth())
-
-	// Windows: Level
-	x, y = levelTextBoxPosition()
-	drawTextBox(imageWindows, "LEVEL", x, y, textBoxWidth())
-
-	// Windows: Lines
-	x, y = linesTextBoxPosition()
-	drawTextBox(imageWindows, "LINES", x, y, textBoxWidth())
 
 	// Gameover
 	imageGameover, _ = ebiten.NewImage(ScreenWidth, ScreenHeight, ebiten.FilterDefault)
@@ -331,18 +312,6 @@ func (s *GameScene) Draw(r *ebiten.Image) {
 	s.drawBackground(r)
 
 	r.DrawImage(imageWindows, nil)
-
-	// Draw score
-	x, y := scoreTextBoxPosition()
-	drawTextBoxContent(r, strconv.Itoa(s.score), x, y, textBoxWidth())
-
-	// Draw level
-	x, y = levelTextBoxPosition()
-	drawTextBoxContent(r, strconv.Itoa(s.level()), x, y, textBoxWidth())
-
-	// Draw lines
-	x, y = linesTextBoxPosition()
-	drawTextBoxContent(r, strconv.Itoa(s.lines), x, y, textBoxWidth())
 
 	// Draw blocks
 	fieldX, fieldY := fieldWindowPosition()
