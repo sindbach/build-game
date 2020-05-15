@@ -168,7 +168,6 @@ func (s *GameScene) drawBackground(r *ebiten.Image) {
 	op.GeoM.Translate(-float64(w)/2, -float64(h)/2)
 	op.GeoM.Scale(scale, scale)
 	op.GeoM.Translate(ScreenWidth/2, ScreenHeight/2)
-	op.ColorM = lightGray
 	op.Filter = ebiten.FilterLinear
 	r.DrawImage(imageGameBG, op)
 }

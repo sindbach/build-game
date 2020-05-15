@@ -103,6 +103,9 @@ func init() {
 			}),
 		},
 	}
+
+
+
 }
 
 const (
@@ -111,6 +114,7 @@ const (
 	fieldBlockNumX = 20
 	fieldBlockNumY = 50
 )
+
 
 func drawBlock(r *ebiten.Image, block BlockType, x, y int, clr ebiten.ColorM) {
 	if block == BlockTypeNone {
